@@ -4,6 +4,8 @@ This plugin is simple and gives you an easy way to "open in a new window" from E
 ## From the Explorer menu
 Add an "Open in New Window" item to the context menu of a right-clicked folder or file in Explorer.
 
+![Capture](capture.png)
+
 ### Keyboard operation is also supported
 Keyboard operation is also supported. You can open Explorer in a new window by pressing [ Command + Option + O ] with a file or folder selected using the arrow keys.
 

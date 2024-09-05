@@ -1,10 +1,11 @@
 {
   "name": "onw",
-  "displayName": "ONW: Open New Window",
-  "description": "",
-  "version": "0.0.1",
+  "displayName": "ONW: Open Files and Folders in New Window",
+  "description": "This plugin is simple and gives you an easy way to open files and folders in a new window from Explorer or an editor. There is one shortcut [ Command + Option + O ] for any operation.",
+  "version": "0.1.0",
   "repository": "https://github.com/2001Y/onw",
   "publisher": "2001Y",
+  "icon": "onw.png", 
   "pricing": "Free",
   "sponsor": {
     "url": "https://revolut.me/2001y"
@@ -16,14 +17,19 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:open-new-window"
+    "onCommand:open-new-window",
+    "onCommand:ONW-open-file-window"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "open-new-window",
-        "title": "新しいウィンドウで開く"
+        "title": "%openNewWindow.title%"
+      },
+      {
+        "command": "ONW-open-file-window",
+        "title": "%openFileWindow.title%"
       }
     ],
     "menus": {
@@ -50,11 +56,47 @@
         {
           "command": "open-new-window",
           "key": "alt+cmd+o"
+        },
+        {
+          "command": "ONW-open-file-window",
+          "key": "cmd+shift+n"
         }
+    ],
+    "localizations": [
+      {
+        "languageId": "ja",
+        "languageName": "日本語",
+        "localizedLanguageName": "Japanese",
+        "translations": [
+          {
+            "id": "openNewWindow.title",
+            "path": "./package.nls.ja.json"
+          },
+          {
+            "id": "openFileWindow.title",
+            "path": "./package.nls.ja.json"
+          }
+        ]
+      },
+      {
+        "languageId": "en",
+        "languageName": "English",
+        "localizedLanguageName": "English",
+        "translations": [
+          {
+            "id": "openNewWindow.title",
+            "path": "./package.nls.json"
+          },
+          {
+            "id": "openFileWindow.title",
+            "path": "./package.nls.json"
+          }
+        ]
+      }
     ]
   },
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
+    "vscode:prepublish": "tsc",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint",

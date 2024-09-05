@@ -1,16 +1,13 @@
 import * as vscode from 'vscode';
 let path = require('path');
 
+function localize(key: string, defaultText: string): string {
+  return vscode.l10n.t(key, defaultText);
+}
+
 export function activate(context: vscode.ExtensionContext) {
 
 	let disposable = vscode.commands.registerCommand('open-new-window', async() => {
-
-		// //右クリックから指定したファイル/フォルダ
-		// let explorerClickPath = vscode.Uri.file(context?.path || "");
-
-		// //開いてるファイル
-		// let activeFile = vscode.Uri.file(vscode.window.activeTextEditor?.document.uri.path || "");
-
 		const originalClipboard = await vscode.env.clipboard.readText();
 		
 		await vscode.commands.executeCommand('copyFilePath');
@@ -20,15 +17,43 @@ export function activate(context: vscode.ExtensionContext) {
 		try {
 			await vscode.workspace.fs.stat(copyUri);
 			vscode.commands.executeCommand("vscode.openFolder", copyUri, true);
-			vscode.window.showInformationMessage(path.basename(copyTxt) + " を新規ウィンドウで開きます。");
+			vscode.window.showInformationMessage(localize('openNewWindow.success', '{0} を新規ウィンドウで開きます。').replace('{0}', path.basename(copyTxt)));
 		} catch {
-			vscode.window.showErrorMessage("フォルダまたはファイルを選択してください。");
+			vscode.window.showErrorMessage(localize('openNewWindow.error', 'フォルダまたはファイルを選択してください。'));
+			vscode.window.showErrorMessage(localize('openNewWindow.error', 'フォルダまたはファイルを選択してください。'));
 		} 
 
 		await vscode.env.clipboard.writeText(originalClipboard);
 	});
 
 	context.subscriptions.push(disposable);
+
+	let onw = vscode.commands.registerCommand('ONW-open-file-window', async() => {
+
+		try {
+			const options = {
+				title: localize('openFileWindow.dialogTitle', 'ファイルを新規ウィンドウで開く'),
+				canSelectMany: false,
+				canSelectFolders: true
+			};
+		
+			const result = await vscode.window.showOpenDialog(options);
+			if (!result) {
+				return;
+			}
+		
+			const selectedFile = result[0];
+			console.log(selectedFile);
+
+			vscode.commands.executeCommand("vscode.openFolder", selectedFile);
+			vscode.window.showInformationMessage(localize('openFileWindow.success', '{0} を新規ウィンドウで開きます。').replace('{0}', path.basename(selectedFile.fsPath)));
+		} catch {
+			vscode.window.showErrorMessage(localize('openFileWindow.error', 'フォルダまたはファイルを選択してください。'));
+		} 
+
+	});
+
+	context.subscriptions.push(onw);
 }
 
 export function deactivate() {}

@@ -1,0 +1,9 @@
+{
+  "openNewWindow.title": "Open in New Window",
+  "openFileWindow.title": "Open File in New Window",
+  "openNewWindow.success": "Opening {0} in a new window.",
+  "openNewWindow.error": "Please select a folder or file.",
+  "openFileWindow.dialogTitle": "Open File in New Window",
+  "openFileWindow.success": "Opening {0} in a new window.",
+  "openFileWindow.error": "Please select a folder or file."
+}

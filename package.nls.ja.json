@@ -1,0 +1,9 @@
+{
+  "openNewWindow.title": "新しいウィンドウで開く",
+  "openFileWindow.title": "ファイルを新しいウィンドウで開く",
+  "openNewWindow.success": "{0} を新規ウィンドウで開きます。",
+  "openNewWindow.error": "フォルダまたはファイルを選択してください。",
+  "openFileWindow.dialogTitle": "ファイルを新規ウィンドウで開く",
+  "openFileWindow.success": "{0} を新規ウィンドウで開きます。",
+  "openFileWindow.error": "フォルダまたはファイルを選択してください。"
+}
